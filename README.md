@@ -1,2 +1,3 @@
 # new-algorithm
-자바스크립트 알고리즘풀이
+
+Nothing beats consistency when learning a language.
