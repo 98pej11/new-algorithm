@@ -1,0 +1,1 @@
+const solution = (n) => n % 7 === 0 ? parseInt(n / 7) : parseInt(n / 7) + 1
