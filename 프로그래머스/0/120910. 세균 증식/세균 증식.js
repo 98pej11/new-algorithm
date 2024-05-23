@@ -1,7 +1,1 @@
-const solution = (n, t) => {
-    let answer = n;
-    for(let i=0;i<t;i++){
-        answer*=2;
-    }
-    return answer;
-}
+const solution = (n, t) => n * Math.pow(2,t)
