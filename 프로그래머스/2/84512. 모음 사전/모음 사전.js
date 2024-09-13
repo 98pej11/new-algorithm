@@ -9,7 +9,6 @@ function solution(word) {
   
     function dfs(fixed, list) {
         if(fixed === word) {
-            console.log(fixed, word);
             answer = count;
             return;
         }
