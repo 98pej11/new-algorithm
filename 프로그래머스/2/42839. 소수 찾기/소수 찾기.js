@@ -1,35 +1,33 @@
 function solution(numbers) {
-    let primes = new Set();
-    let nums = numbers.split("");
+    var answer = 0;
+    let result = new Set();
+    let list = numbers.split("");
+    let visited = Array.from({length: list.length}, () => false);
     
-    dfs('',nums,primes);
+    dfs("", list);
     
-    // dfs 탐색 순열
-    function dfs(fixed, list, result) {
-        // 종료 조건
+    function dfs (select, list) {
+        if(isPrime(parseInt(select)) && select !== '' && select[0] !== '0') {
+            result.add(select);
+        }
         if(list.length === 0) return;
         
-        for(let i=0;i<list.length;i++){
-            let newFixed = fixed + list[i];
+        for(let i=0;i<list.length;i++) {
             let newList = [...list];
+            
             newList.splice(i,1);
-            
-            if (isPrime(parseInt(newFixed))){
-                primes.add(parseInt(newFixed));
-            }
-            
-            dfs(newFixed, newList, primes);
+            dfs(select+list[i], newList);
         }
     }
     
-    // 소수 찾기
-    function isPrime(num) {
+    function isPrime (num) {
         if(num <= 1) return false;
-        for(let i=2;i<=Math.sqrt(num);i++){
+        for(let i=2;i<=Math.sqrt(num);i++) {
             if(num % i === 0) return false;
         }
         return true;
     }
     
-    return primes.size;
+    console.log(result);
+    return result.size;
 }
