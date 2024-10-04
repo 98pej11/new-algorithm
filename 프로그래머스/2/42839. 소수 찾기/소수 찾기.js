@@ -1,8 +1,6 @@
 function solution(numbers) {
-    var answer = 0;
     let result = new Set();
     let list = numbers.split("");
-    let visited = Array.from({length: list.length}, () => false);
     
     dfs("", list);
     
@@ -28,6 +26,5 @@ function solution(numbers) {
         return true;
     }
     
-    console.log(result);
     return result.size;
 }
