@@ -1,23 +1,21 @@
 function solution(word) {
     let answer = 0;
-    let count = 0;
-    let text = "AEIOU";
-    let visited = Array.from({length: word.length}, ()=>false);
+    let cnt = -1;
+    const dic = ['A','E','I','O','U'];
     
-    dfs('', text, 0);
+    dfs('', 0);
     
-  
-    function dfs(fixed, list) {
-        if(fixed === word) {
-            answer = count;
+    function dfs(select) {
+        cnt++;
+        
+        if(select === word) {
+            answer = cnt;
             return;
         }
-
-        for(let i=0;i<list.length;i++) {
-            if(!visited[i] && fixed.length < 5) {
-                count++;
-                dfs(fixed + list[i], list);
-            }
+        if(select.length === 5) return;
+        
+        for(let i=0;i<dic.length;i++) {
+             dfs(select + dic[i]);
         }
     }
     
