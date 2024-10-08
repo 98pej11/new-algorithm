@@ -1,24 +1,26 @@
 function solution(numbers) {
-    let result = new Set();
-    let list = numbers.split("");
+    const set = new Set();
+    const arr = numbers.split("");
+    const visited = Array.from({length: arr.length}, () => false);
+
+    dfs("", arr);
     
-    dfs("", list);
-    
-    function dfs (select, list) {
-        if(isPrime(parseInt(select)) && select !== '' && select[0] !== '0') {
-            result.add(select);
+    function dfs(select, list) {
+        if(select !== '' && select[0] !== '0' && isPrime(parseInt(select))) {
+            set.add(select);
         }
-        if(list.length === 0) return;
-        
+        if(select.length === numbers.length) return;
+
         for(let i=0;i<list.length;i++) {
-            let newList = [...list];
-            
-            newList.splice(i,1);
-            dfs(select+list[i], newList);
+            if(!visited[i]) {
+                visited[i] = true;
+                dfs(select+list[i], list);
+                visited[i] = false;
+            }
         }
     }
     
-    function isPrime (num) {
+    function isPrime(num) {
         if(num <= 1) return false;
         for(let i=2;i<=Math.sqrt(num);i++) {
             if(num % i === 0) return false;
@@ -26,5 +28,5 @@ function solution(numbers) {
         return true;
     }
     
-    return result.size;
+    return set.size;
 }
