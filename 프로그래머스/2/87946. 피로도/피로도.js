@@ -1,18 +1,19 @@
 function solution(k, dungeons) {
     let answer = 0;
-    const visited = Array.from({ length: dungeons.length }, () => false);
-
+    const visited = Array.from({length: dungeons.length}, ()=>false);
+    
     dfs(k, 0);
-
-    function dfs(remain, value) {
+    
+    function dfs(remain, result) {
+        answer = Math.max(answer, result);
+        
         for(let i=0;i<dungeons.length;i++) {
-            if(!visited[i] && dungeons[i][0] <= remain) {
-                visited[i] = true; // 방문처리
-                dfs(remain-dungeons[i][1], value+1); // 재귀
-                visited[i] = false; // 초기화
+            if(!visited[i] && remain >= dungeons[i][0]) {
+                 visited[i] = true;
+                 dfs(remain - dungeons[i][1], result + 1);
+                 visited[i] = false;
             }
         }
-        answer = Math.max(answer,value);
     }
     
     return answer;
