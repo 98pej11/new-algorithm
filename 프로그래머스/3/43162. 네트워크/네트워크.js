@@ -4,7 +4,6 @@ function solution(n, computers) {
 
     for(let i=0;i<n;i++){
         if(!visited[i]) {
-            // visited[i] = true;
             dfs(i);
             answer++;
         }
@@ -12,15 +11,10 @@ function solution(n, computers) {
    
     
     function dfs(idx) {
-        // console.log(idx, cnt);
         visited[idx] = true;
 
         for(let i=0;i<n;i++){
-            if(!visited[i]) {
-                // computers[0][]
-                if(computers[idx][i] === 1)  dfs(i);
-                // else dfs(i, 0);              
-            }
+            if(!visited[i] && computers[idx][i] === 1) dfs(i);
         }
     }
     
