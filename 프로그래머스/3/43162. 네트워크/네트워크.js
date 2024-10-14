@@ -4,7 +4,7 @@ function solution(n, computers) {
     
     for(let i=0;i<n;i++) {
         if(!visited[i]) {
-            BFS(i);
+            BFS(i);  // DFS도 가능
             answer++;
         }
     }
@@ -23,6 +23,16 @@ function solution(n, computers) {
             }
         }
     }
+
+//     function DFS(idx) {
+//         visited[idx] = true;
+//    
+//         for(let i=0;i<n;i++) {
+//               if(i !== item && !visited[i] && computers[item][i] === 1) {
+//                    DFS(i);
+//               }
+//         }
+//     }
 
     return answer;
 }
