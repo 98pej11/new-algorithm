@@ -7,11 +7,6 @@ function solution(progresses, speeds) {
         queue.enqueue(Math.ceil(cur)); 
     }
     
-    console.log(queue);
-    // [7,3,9,1,10]
-    // [10,2,3]
-    
-    
     let cnt = 0;
     
     while(queue.size() > 0) {
