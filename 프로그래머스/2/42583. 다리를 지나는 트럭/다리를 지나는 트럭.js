@@ -1,20 +1,18 @@
 function solution(bridge_length, weight, truck_weights) {
-    var answer = 0;
-    
     const q = new Queue();
     
     let sum = truck_weights[0]; // 무게합
     q.enqueue(truck_weights.shift());
     
     let result = 0;
-    
-    // 4, 10, [3,7,7,1]
-    while(sum > 0) { // 7
-        result++; 
+
+    while(sum > 0) {
+        result++;
+        
         if(result >= bridge_length) {
             sum -= q.dequeue();
         }
-        // console.log(truck_weights[0]);
+
         if(sum + truck_weights[0] <= weight) {
             sum += truck_weights[0];
             q.enqueue(truck_weights.shift());
@@ -24,6 +22,7 @@ function solution(bridge_length, weight, truck_weights) {
             q.enqueue(0);
         }
     }
+    
     return result + 1;
 }
         
