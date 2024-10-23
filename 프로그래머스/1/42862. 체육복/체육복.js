@@ -1,23 +1,26 @@
 function solution(n, lost, reserve) {
-    let realLost = lost.filter(v => !reserve.includes(v)).sort((a,b) => a-b);
-    let realReserve = reserve.filter(v => !lost.includes(v)).sort((a,b) => a-b);
-    let answer = n - realLost.length;
-    let idx = 0;
+    var answer = n;
     
-    for(let i=0;i<realReserve.length;i++){
-        if(realLost.indexOf(realReserve[i] - 1) > -1) {
-            idx = realLost.indexOf(realReserve[i] - 1);
-            realLost.splice(idx,1);
-            answer++;
-                 continue;
-        }
-        if(realLost.indexOf(realReserve[i] + 1) > -1) {
-            idx = realLost.indexOf(realReserve[i] + 1);
-            realLost.splice(idx,1);
-            
-            console.log("prev ", realLost);
-            answer++;
-        }
+    const realReserve = reserve.filter(v => !lost.includes(v)).sort((a,b) => a-b);
+    const realLost = lost.filter(v => !reserve.includes(v)).sort((a,b) => a-b);
+    const visited = Array.from({length: n+1}, () => false);
+    
+    // 5 [3,5] [2,4]
+    
+    visited[0] = true;
+
+    for(let i=1;i<=n;i++) {
+        if(!realLost.includes(i) && !realReserve.includes(i)) visited[i] = true;
+    }
+    
+    for(let i=0;i<realReserve.length;i++) {
+        visited[realReserve[i]] = true;
+        if(!visited[realReserve[i]-1] && realLost.includes(realReserve[i]-1)) visited[realReserve[i]-1] = true;
+        else if(!visited[realReserve[i]+1] && realLost.includes(realReserve[i]+1)) visited[realReserve[i]+1] = true;
+    }
+    
+    for(let i=1;i<=n;i++) {
+        if(!visited[i]) answer--;
     }
     
     return answer;
