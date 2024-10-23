@@ -5,8 +5,6 @@ function solution(n, lost, reserve) {
     const realLost = lost.filter(v => !reserve.includes(v)).sort((a,b) => a-b);
     const visited = Array.from({length: n+1}, () => false);
     
-    // 5 [3,5] [2,4]
-    
     visited[0] = true;
 
     for(let i=1;i<=n;i++) {
