@@ -1,5 +1,4 @@
 function solution(clothes) {
-    let result = clothes.length;
     const map = new Map();
     
     for(let i=0;i<clothes.length;i++) {
