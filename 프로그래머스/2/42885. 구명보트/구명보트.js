@@ -15,9 +15,7 @@ function solution(people, limit) {
         if(sum + q.storage[q.front] <= limit) {
             sum += q.dequeue();
         }
-        // while(sum + q.storage[q.front] <= limit) {
-        //     sum += q.dequeue();
-        // }
+
         answer++;
     }
     
