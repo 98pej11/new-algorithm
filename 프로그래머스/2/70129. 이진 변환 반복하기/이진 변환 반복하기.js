@@ -7,7 +7,6 @@ function solution(s) {
         cnt[0]++;
         cnt[1] += (s.match(/0/g) || []).length;
         
-        
         s = s.replace(/0/g, "");
         s = (s.length).toString(2);
     }
