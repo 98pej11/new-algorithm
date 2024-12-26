@@ -47,13 +47,16 @@ const checkUnique = (combi, table) => {
 const checkMinimal = (combi) => {
     const result = [];
 
-    while(combi.length){
+     while (combi.length) {
+        console.log(combi);
         result.push(combi[0]);
-        combi = combi.reduce((acc, cur) => {
-            let check = combi[0].every(e => cur.includes(e));
-            if(!check) acc.push(cur);
-            return acc;
-        },[]);
+        
+        // 첫 번째 원소를 제외한 나머지 원소들 중에서
+        // combi[0]의 모든 원소를 포함하지 않는 것만 필터링
+        combi = combi.filter(cur => {
+            let check = combi[0].every(v => cur.includes(v));
+            return !check;  // combi[0]을 포함하지 않으면 true 반환
+        });
     }
 
     return result;
