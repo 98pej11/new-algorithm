@@ -1,15 +1,4 @@
 function solution(n, tops) {
-    var answer = 0;
-    
-    /* 점화식처럼 각 케이스별로 생각 */
-    // 변 위에 삼각형이 있는 경우 o
-    // 큰 삼각형에 마름모가 들어갈수있는 케이스 생각하면 4가지가 나옴 (마름모 3 + 마름모가 없는 경우)
-    // 변 위에 삼각형이 없는 경우 x
-    // 큰 삼각형에 마름모가 들어갈수있는 케이스 생각하면 3가지가 나옴 (마름모 2 + 마름모가 없는 경우)
-    
-    // 큰 삼각형 두개가 붙어있을 경우 겹치는곳에 마름모가 들어가게 되면 옆 삼각형에 영향을 줌
-    // dp 배열을 각각 선언 dp1 (안 겹치는 케이스). dp2 (겹치는 케이스)
-    // 
     const N = tops.length;
     const dpA = new Array(N).fill(0);
     const dpB = new Array(N).fill(0);
@@ -40,5 +29,6 @@ function solution(n, tops) {
         dpA[i] %= 10007;
         dpB[i] %= 10007;
     }
+    
     return (dpA[N-1] + dpB[N-1]) % 10007;
 }
