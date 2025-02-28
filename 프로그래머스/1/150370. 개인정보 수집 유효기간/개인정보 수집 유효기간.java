@@ -5,13 +5,10 @@ class Solution {
         List<Integer> answer = new ArrayList<>();
         
         String[] str = today.split("\\.");
-        // str = today.split(".");
-      
         
         int Y = Integer.parseInt(str[0]);
         int M = Integer.parseInt(str[1]);
         int D = Integer.parseInt(str[2]);
-        System.out.println(Y + " " + M + " "+D);
         
         Map<String, Integer> map = new HashMap<>();
         
@@ -19,9 +16,7 @@ class Solution {
             String[] s = terms[i].split(" ");
             map.put(s[0], Integer.parseInt(s[1]));
         }
-        
-        map.forEach((k,v) ->  System.out.println(k + " " +v));
-        
+
         for(int i=0;i<privacies.length;i++) {
             String[] cur = privacies[i].split(" ");
             String[] date = cur[0].split("\\.");
@@ -33,6 +28,7 @@ class Solution {
             
             if(getTime(year, month, day) <= getTime(Y,M,D)) answer.add(i+1);
         }
+        
         return answer.stream()
             .mapToInt(i->i)
             .toArray();
