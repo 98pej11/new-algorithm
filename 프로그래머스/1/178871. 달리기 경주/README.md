@@ -1,10 +1,10 @@
 # [level 1] 달리기 경주 - 178871 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/178871?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/178871?language=java) 
 
 ### 성능 요약
 
-메모리: 84 MB, 시간: 251.15 ms
+메모리: 363 MB, 시간: 4688.92 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 28일 16:27:43
+2025년 02월 28일 17:15:26
 
 ### 문제 설명
 
