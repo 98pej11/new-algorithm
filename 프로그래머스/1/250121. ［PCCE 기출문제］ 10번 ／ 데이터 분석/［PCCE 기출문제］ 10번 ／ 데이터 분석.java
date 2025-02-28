@@ -24,10 +24,8 @@ class Solution {
         }
 
         list.sort((a,b) -> a[aa] - b[aa]);
-        list.toArray();
 
-        int[][] answer = list.toArray(new int[list.size()][4]);
-        return answer;
+        return list.toArray(int[][]::new);
     }
 
 }
