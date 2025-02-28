@@ -8,14 +8,7 @@ class Solution {
             N++;
         }
 
-        int[] answer = new int[N];
-        for(int i=0;i<arr.length;i++){
-            answer[i] = arr[i];
-        }
-        for(int i=arr.length;i<N;i++){
-            answer[i] = 0;
-        }
-        return answer;
+        return Arrays.copyOfRange(arr, 0, N);
     }
     
     public boolean is2k(int n){
