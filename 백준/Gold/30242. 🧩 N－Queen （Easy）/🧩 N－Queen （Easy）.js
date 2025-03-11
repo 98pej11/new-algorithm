@@ -24,7 +24,7 @@ for (let i = 0; i < N; i++) {
 function backtrack(r) {
   // 모든 행에 퀸을 배치했으면, 결과를 저장하고 true 반환
   if (r === N) {
-    result = arr.map((val, idx) => (val === 0 ? idx + 1 : val)).join(" ");
+    result = arr.join(" ");
     return true;
   }
 
