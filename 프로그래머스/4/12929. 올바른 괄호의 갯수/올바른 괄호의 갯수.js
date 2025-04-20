@@ -1,5 +1,4 @@
 function solution(n) {
-    // var answer = 0;
     let arr = [];
 
     DFS("", 0, 0); 
