@@ -5,13 +5,14 @@ function solution(n, q, ans) {
     for(let i=1;i<=n;i++) {
         list.push(i);
     }
-    // console.log(list);
+    
     combination([],1);
-
+                
+    return answer;
+    
     
     function combination(arr, start) {
         if(arr.length === 5) {
-            // console.log(arr);
             if(check(arr)) answer++;
             return;
         }
@@ -34,7 +35,5 @@ function solution(n, q, ans) {
         }
         return true;
     }
-            
-    return answer;
 }
 
