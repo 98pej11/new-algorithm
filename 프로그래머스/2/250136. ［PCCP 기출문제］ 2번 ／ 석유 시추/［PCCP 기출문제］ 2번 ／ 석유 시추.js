@@ -31,8 +31,7 @@ function solution(land) {
             }
         }
     }
-    
-    console.log(land);
+ 
     let max = 0;
     
     for(let i=0;i<M;i++) {
