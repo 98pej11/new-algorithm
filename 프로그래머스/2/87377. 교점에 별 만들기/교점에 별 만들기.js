@@ -14,6 +14,7 @@ function solution(line) {
             if(Number.isInteger(x) && Number.isInteger(y)) set.add(x+" "+y);
         }
     }
+    
     let rMin = Infinity;
     let rMax = -Infinity;
     let cMin = Infinity;
@@ -26,8 +27,6 @@ function solution(line) {
         cMin = Math.min(cMin, c);
         cMax = Math.max(cMax, c);
     }
-    console.log(set);
-    console.log(rMin, rMax, cMin, cMax);
     
     for(let i=cMax;i>=cMin;i--) {
         let str = "";
@@ -42,9 +41,3 @@ function solution(line) {
     
     return result;
 }
-
-// 2x-y+4 = -2x-y+4
-// 4x = 0
-
-// 2x-y+4 = 5x+8y+12
-// 3x + 9y = -8
