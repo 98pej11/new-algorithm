@@ -1,9 +1,9 @@
 // 4시 48분
 function solution(a) {
     const MAX = 1000000000;
+    
     let leftMin = MAX;
     let rightMin = MAX;
-    let count = 0;
     
     let leftSet = new Set();
     let rightSet = new Set();
@@ -20,9 +20,10 @@ function solution(a) {
         if(i !== a.length - 1) {
             rightMin = Math.min(rightMin, a[i+1]);
         }
-
         if(a[i] > rightMin) rightSet.add(i);
     }
+    
+    let count = 0;
     
     for(let i=0;i<a.length;i++) {
         if(leftSet.has(i) && rightSet.has(i)) count++;
