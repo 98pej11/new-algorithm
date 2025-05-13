@@ -1,4 +1,3 @@
-// 4시 48분
 function solution(a) {
     const MAX = 1000000000;
     
