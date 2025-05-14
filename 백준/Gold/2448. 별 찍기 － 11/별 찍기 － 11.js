@@ -25,6 +25,7 @@ function inputStar(r, c, N) {
     star[r + 2][c] = "*";
     star[r + 2][c + 1] = "*";
     star[r + 2][c + 2] = "*";
+    return;
   } else {
     inputStar(r, c, N / 2);
     inputStar(r + N / 2, c - N / 2, N / 2);
