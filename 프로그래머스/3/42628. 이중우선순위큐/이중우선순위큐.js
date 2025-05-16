@@ -71,7 +71,6 @@ function solution(operations) {
         if(M === 'I') {
             heap.insert(num);
         } else {
-            if(heap.heap.length === 0) continue;
             if(num === -1) {
                 heap.deleteMin();
             }  else {
@@ -80,8 +79,7 @@ function solution(operations) {
             }
         }
     }
-    
-    // heap.heap.sort((a,b) => a-b);
+    heap.heap.sort((a,b) => a-b);
     if(heap.heap.length === 0) return [0,0];
-    else return [Math.max(...heap.heap), Math.min(...heap.heap)];
+    else return [heap.heap[heap.heap.length-1], heap.heap[0]];
 }
