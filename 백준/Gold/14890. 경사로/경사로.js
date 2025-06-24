@@ -1,31 +1,27 @@
 const fs = require("fs");
 let [n, ...map] = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-let [N, L] = n.trim().split(" ").map(Number);
+let [N, L] = n.split(" ").map(Number);
 for (let i = 0; i < N; i++) {
-  map[i] = map[i].trim().split(" ").map(Number);
+  map[i] = map[i].split(" ").map(Number);
 }
 
 let answer = 0;
 
 // 행 체크
 for (let i = 0; i < N; i++) {
-  if (checkRoute(map[i])) {
-    answer++;
-  }
+  if (check(map[i])) answer++;
 }
 
 // 열 체크
 for (let i = 0; i < N; i++) {
   let column = map.map((row) => row[i]);
-  if (checkRoute(column)) {
-    answer++;
-  }
+  if (check(column)) answer++;
 }
 
 console.log(answer);
 
-function checkRoute(arr) {
+function check(arr) {
   let same = 1;
   let isPossible = true;
 
