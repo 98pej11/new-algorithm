@@ -24,15 +24,5 @@ function solution(n, computers) {
         }
     }
 
-//     function DFS(idx) {
-//         visited[idx] = true;
-//    
-//         for(let i=0;i<n;i++) {
-//               if(i !== item && !visited[i] && computers[item][i] === 1) {
-//                    DFS(i);
-//               }
-//         }
-//     }
-
     return answer;
 }
