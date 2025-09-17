@@ -15,13 +15,16 @@ places.sort((a, b) => a - b);
 // console.log(places);
 
 let answer = 0;
-// i = 휴게소가 없는 구간의 최대값
-for (let i = 1; i <= L; i++) {
-  let cnt = countNewPlace(i);
+let left = 1;
+let right = L;
 
-  if (cnt <= M) {
-    answer = i;
-    break;
+while (left <= right) {
+  let mid = parseInt((left + right) / 2);
+  if (countNewPlace(mid) <= M) {
+    answer = mid;
+    right = mid - 1;
+  } else {
+    left = mid + 1;
   }
 }
 
