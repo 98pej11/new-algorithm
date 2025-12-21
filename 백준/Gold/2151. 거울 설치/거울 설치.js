@@ -1,17 +1,34 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
+class Queue {
+  constructor() {
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+  }
+  enqueue(item) {
+    this.queue.push(item);
+    this.rear++;
+  }
+  dequeue() {
+    return this.queue[this.front++];
+  }
+  isEmpty() {
+    return this.front === this.rear;
+  }
+}
+
 const N = Number(input[0]);
 const map = input.slice(1).map((row) => row.split(""));
 
 const dirs = [
-  [-1, 0], // 상
-  [0, 1], // 우
-  [1, 0], // 하
-  [0, -1], // 좌
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1],
 ];
 
-// 문 위치 찾기
 let doors = [];
 for (let i = 0; i < N; i++) {
   for (let j = 0; j < N; j++) {
@@ -22,20 +39,17 @@ for (let i = 0; i < N; i++) {
 const [sr, sc] = doors[0];
 const [er, ec] = doors[1];
 
-// cost[r][c][dir]
 const cost = Array.from({ length: N }, () => Array.from({ length: N }, () => Array(4).fill(Infinity)));
 
-// 일반 큐
-const queue = [];
+const queue = new Queue();
 
-// 시작: 4방향
 for (let d = 0; d < 4; d++) {
   cost[sr][sc][d] = 0;
-  queue.push([sr, sc, d]);
+  queue.enqueue([sr, sc, d]);
 }
 
-while (queue.length) {
-  const [r, c, dir] = queue.shift();
+while (!queue.isEmpty()) {
+  const [r, c, dir] = queue.dequeue();
   const cnt = cost[r][c][dir];
 
   const [dr, dc] = dirs[dir];
@@ -45,18 +59,18 @@ while (queue.length) {
   if (nr < 0 || nc < 0 || nr >= N || nc >= N) continue;
   if (map[nr][nc] === "*") continue;
 
-  // 1️⃣ 직진
+  // 직진
   if (cost[nr][nc][dir] > cnt) {
     cost[nr][nc][dir] = cnt;
-    queue.push([nr, nc, dir]);
+    queue.enqueue([nr, nc, dir]);
   }
 
-  // 2️⃣ 거울 설치
+  // 거울 설치
   if (map[nr][nc] === "!") {
     for (const nd of [(dir + 1) % 4, (dir + 3) % 4]) {
       if (cost[nr][nc][nd] > cnt + 1) {
         cost[nr][nc][nd] = cnt + 1;
-        queue.push([nr, nc, nd]);
+        queue.enqueue([nr, nc, nd]);
       }
     }
   }
