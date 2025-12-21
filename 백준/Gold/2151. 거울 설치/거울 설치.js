@@ -4,9 +4,14 @@ const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 const N = Number(input[0]);
 const map = input.slice(1).map((row) => row.split(""));
 
-const dr = [-1, 0, 1, 0];
-const dc = [0, 1, 0, -1];
+const dirs = [
+  [-1, 0], // 상
+  [0, 1], // 우
+  [1, 0], // 하
+  [0, -1], // 좌
+];
 
+// 문 위치 찾기
 let doors = [];
 for (let i = 0; i < N; i++) {
   for (let j = 0; j < N; j++) {
@@ -17,94 +22,49 @@ for (let i = 0; i < N; i++) {
 const [sr, sc] = doors[0];
 const [er, ec] = doors[1];
 
-// dist[r][c][dir]
-const INF = Infinity;
-const dist = Array.from({ length: N }, () => Array.from({ length: N }, () => Array(4).fill(INF)));
+// cost[r][c][dir]
+const cost = Array.from({ length: N }, () => Array.from({ length: N }, () => Array(4).fill(Infinity)));
 
-// 최소 힙 (다익스트라)
-class MinHeap {
-  constructor() {
-    this.heap = [];
-  }
-  push(item) {
-    this.heap.push(item);
-    this._up();
-  }
-  _up() {
-    let i = this.heap.length - 1;
-    while (i > 0) {
-      let p = Math.floor((i - 1) / 2);
-      if (this.heap[p][0] <= this.heap[i][0]) break;
-      [this.heap[p], this.heap[i]] = [this.heap[i], this.heap[p]];
-      i = p;
-    }
-  }
-  pop() {
-    if (this.heap.length === 1) return this.heap.pop();
-    const top = this.heap[0];
-    this.heap[0] = this.heap.pop();
-    this._down();
-    return top;
-  }
-  _down() {
-    let i = 0;
-    while (true) {
-      let l = i * 2 + 1;
-      let r = i * 2 + 2;
-      let smallest = i;
+// 일반 큐
+const queue = [];
 
-      if (l < this.heap.length && this.heap[l][0] < this.heap[smallest][0]) smallest = l;
-      if (r < this.heap.length && this.heap[r][0] < this.heap[smallest][0]) smallest = r;
-      if (smallest === i) break;
-      [this.heap[i], this.heap[smallest]] = [this.heap[smallest], this.heap[i]];
-      i = smallest;
-    }
-  }
-  isEmpty() {
-    return this.heap.length === 0;
-  }
-}
-
-const pq = new MinHeap();
-
-// 시작점에서 4방향 출발
+// 시작: 4방향
 for (let d = 0; d < 4; d++) {
-  dist[sr][sc][d] = 0;
-  pq.push([0, sr, sc, d]);
+  cost[sr][sc][d] = 0;
+  queue.push([sr, sc, d]);
 }
 
-while (!pq.isEmpty()) {
-  const [cnt, r, c, dir] = pq.pop();
+while (queue.length) {
+  const [r, c, dir] = queue.shift();
+  const cnt = cost[r][c][dir];
 
-  if (cnt > dist[r][c][dir]) continue;
-
-  let nr = r + dr[dir];
-  let nc = c + dc[dir];
+  const [dr, dc] = dirs[dir];
+  const nr = r + dr;
+  const nc = c + dc;
 
   if (nr < 0 || nc < 0 || nr >= N || nc >= N) continue;
   if (map[nr][nc] === "*") continue;
 
-  // 직진
-  if (dist[nr][nc][dir] > cnt) {
-    dist[nr][nc][dir] = cnt;
-    pq.push([cnt, nr, nc, dir]);
+  // 1️⃣ 직진
+  if (cost[nr][nc][dir] > cnt) {
+    cost[nr][nc][dir] = cnt;
+    queue.push([nr, nc, dir]);
   }
 
-  // 거울 설치 가능
+  // 2️⃣ 거울 설치
   if (map[nr][nc] === "!") {
     for (const nd of [(dir + 1) % 4, (dir + 3) % 4]) {
-      if (dist[nr][nc][nd] > cnt + 1) {
-        dist[nr][nc][nd] = cnt + 1;
-        pq.push([cnt + 1, nr, nc, nd]);
+      if (cost[nr][nc][nd] > cnt + 1) {
+        cost[nr][nc][nd] = cnt + 1;
+        queue.push([nr, nc, nd]);
       }
     }
   }
 }
 
-// 도착 문 최소값
-let answer = INF;
+let answer = Infinity;
 for (let d = 0; d < 4; d++) {
-  answer = Math.min(answer, dist[er][ec][d]);
+  answer = Math.min(answer, cost[er][ec][d]);
 }
 
 console.log(answer);
